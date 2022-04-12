@@ -1,0 +1,48 @@
+version: '3'
+services:
+    database:
+        image: mysql:5.6
+        command:
+            - "--character-set-server=utf8"
+            - "--collation-server=utf8_unicode_ci"
+        ports:
+            - "3307:3306" #適宜変更してください
+        restart: on-failure:5
+        environment:
+            MYSQL_USER: wordpress
+            MYSQL_DATABASE: wordpress
+            MYSQL_PASSWORD: wordpress
+            MYSQL_ROOT_PASSWORD: wordpress
+    wordpress:
+        depends_on:
+            - database
+        build:
+          context: ./docker/
+        ports:
+            - "8000:80" #適宜変更してください
+        restart: on-failure:5
+        volumes:
+            - ./public:/var/www/html
+        environment:
+            WORDPRESS_DB_HOST: database:3306
+            WORDPRESS_DB_PASSWORD: wordpress
+    phpmyadmin:
+        depends_on:
+            - database
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - 8080:80 # #適宜変更してください
+        restart: on-failure:5
+        environment:
+            PMA_HOST: database
+    wordmove:
+        tty: true
+        depends_on:
+            - wordpress
+        image: mfuezesi/wordmove
+        restart: on-failure:5
+        container_name: my_wordmove
+        volumes:
+            - ./config:/home
+            - ./public:/var/www/html
+            - ~/.ssh:/root/.ssh      # (!)
