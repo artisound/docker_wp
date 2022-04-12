@@ -14,8 +14,8 @@ $ docker-comopse up -d
 
 |サービス|URL|
 |-|-|
-|WordPress|https://localhost:8000/|
-|phpMyAdmin|https://localhost:8080/|
+|WordPress|http://localhost:8000/|
+|phpMyAdmin|http://localhost:8080/|
 
 ### Wordpressにつながらない場合...
 ./public/wp-config.phpの設定情報を確認してください。
