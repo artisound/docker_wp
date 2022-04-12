@@ -10,7 +10,7 @@
 ## 環境構築・起動
 オプション`-d`でバッググラウンド起動
 ```
-$ docker-comopse up -d
+$ docker-compose up -d
 ```
 
 |サービス|URL|
